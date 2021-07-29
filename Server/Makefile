@@ -1,3 +1,4 @@
 SvDir=ServerLibs/
+GmDir=GameLibs/
 all:
-	g++ -o Server.out Server.cpp httplib.h $(SvDir)ServerConfig.h $(SvDir)ConsoleWork.cpp
+	g++ -pthread -o Server.out Server.cpp $(SvDir)httplib.h $(SvDir)ServerConfig.cpp $(SvDir)ConsoleWork.cpp $(GmDir)Player.cpp

@@ -9,11 +9,11 @@ using namespace std;
 class ServerConfig
 {
 public:
-    ServerConfig(string _serverName="Server",int _port=3150,int _maxPlayers=2):serverName(_serverName),port(_port),maxPlayers(_maxPlayers){}
-private:
-    string serverName;
-    int port;
-    int maxPlayers;
+    ServerConfig(string ,string,int ,int );
+    const string serverName;
+    const string address;
+    const int port;
+    const int maxPlayers;
 };
 
 #endif  // __SERVER_CONFIG_H_Z4NKUGO5BGRP__
