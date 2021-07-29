@@ -1,12 +1,13 @@
 #include<iostream>
 #include "httplib.h"
+#include "ServerLibs/ServerConfig.h"
+#include "ServerLibs/ConsoleWork.h"
 using namespace std;
 using namespace httplib;
 int main()
 {
-    Server svr;
-    svr.Get("/hi",[](const Request &,Response &res){
-        res.set_content("Hello World!","text/plain");
-    });
-    svr.listen("0.0.0.0", 8080);
+    ServerConfig *serverConfig=new ServerConfig();
+    ConsoleWork *consoleWork=new ConsoleWork();
+    consoleWork->GetServerConfig(serverConfig);
+    
 }
