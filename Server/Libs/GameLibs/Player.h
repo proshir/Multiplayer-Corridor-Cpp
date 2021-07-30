@@ -6,14 +6,16 @@
 ///
 #include <iostream>
 using namespace std;
+class HttpServerCorridor;
 class Player
 {
+    friend class HttpServerCorridor;
 public:
     Player(string _name,int _id):name(_name),id(_id),ready(0){}
+private:
     const int id;
     const string name;
     bool ready;
-private:
     pair<int,int> pos;
 };
 

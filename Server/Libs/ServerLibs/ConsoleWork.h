@@ -9,6 +9,7 @@ class ConsoleWork
 {
 public:
     void GetServerConfig(ServerConfig *&);
+    void SayServerRun();
     void SayPlayerEntered(string name,int id);
     void SayPlayerReady(int id);
 };

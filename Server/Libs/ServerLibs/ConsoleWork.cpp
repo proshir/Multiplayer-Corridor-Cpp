@@ -18,8 +18,12 @@ void ConsoleWork::GetServerConfig(ServerConfig *& serverConfig)
     {
         cout<<"Please Enter MaxPlayers (2-4)\n";
         cin>>maxPlayers; 
-    } while (maxPlayers>4 && maxPlayers<2);
+    } while (maxPlayers>4 || maxPlayers<2);
     serverConfig=new ServerConfig(serverName,address,port,maxPlayers);
+}
+void ConsoleWork::SayServerRun()
+{
+    cout<<"The server is running\n";
 }
 void ConsoleWork::SayPlayerEntered(string name,int id)
 {

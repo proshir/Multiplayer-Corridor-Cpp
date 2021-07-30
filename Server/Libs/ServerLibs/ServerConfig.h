@@ -6,10 +6,13 @@
 ///
 #include <iostream>
 using namespace std;
+class HttpServerCorridor;
 class ServerConfig
 {
+    friend class HttpServerCorridor;
 public:
     ServerConfig(string ,string,int ,int );
+private:
     const string serverName;
     const string address;
     const int port;
