@@ -21,3 +21,11 @@ void ConsoleWork::GetServerConfig(ServerConfig *& serverConfig)
     } while (maxPlayers>4 && maxPlayers<2);
     serverConfig=new ServerConfig(serverName,address,port,maxPlayers);
 }
+void ConsoleWork::SayPlayerEntered(string name,int id)
+{
+    cout<<"Player "+name+" with id= "+to_string(id) +" Entered\n";
+}
+void ConsoleWork::SayPlayerReady(int id)
+{
+    cout<<"Player with id= "+to_string(id) +" Say Ready\n";
+}
