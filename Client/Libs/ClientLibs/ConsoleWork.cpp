@@ -62,3 +62,50 @@ void ConsoleWork::PrintMap(string map)
         }
     }
 }
+void ConsoleWork::SayYourTurn(bool& flag,int& x,int& y,int& dir)
+{
+    do
+    {
+        string sFlag,sDir;
+        cout<<"-------------------------\n";
+        cout<<"0.You want move your self!\n";
+        cout<<"1.You want put a Wall\n";
+        cout<<"-------------------------\n";
+        cin>>sFlag;
+        if(sFlag=="0") 
+        {
+            flag=false;
+            cout<<"-------------------------\n";
+            cout<<"You want go \n";
+            cout<<"0.Right   1.Down    2.Left    3.Up\n";
+            cout<<"-------------------------\n";
+            cin>>dir;
+            if(dir>=4 || dir<0)
+                continue;
+        }
+        else if(sFlag=="1") 
+        {
+            cout<<"-------------------------\n";
+            cout<<"Say X pos (0base)\n";
+            cout<<"-------------------------\n";
+            cin>>x;
+            cout<<"-------------------------\n";
+            cout<<"Say Y pos (0base)\n";
+            cout<<"-------------------------\n";
+            cin>>y;
+            cout<<"-------------------------\n";
+            cout<<"You want go \n";
+            cout<<"0.Right-Left   1.Up-Down\n";
+            cout<<"-------------------------\n";
+            cin>>dir;
+            if(dir>=2 || dir<0)
+                continue;
+            flag=true;
+        }
+        else continue;
+    } while (false);
+}
+void ConsoleWork::SayYouCantDoThis()
+{
+    cout<<"YouCantDoThis\n";
+}

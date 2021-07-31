@@ -11,18 +11,23 @@ using namespace httplib;
 class HttpClientCorridor
 {
 public:
-    HttpClientCorridor();
+    HttpClientCorridor(string _apiConnect,string _apiStatus,string _apiReady,string _apiTurn);
     void InitConnectConfigFromConsole();
     void InitClient();
-    bool JoinToServer(string);
-    bool InitStatusCore(string,string apiReady,string apiTurn);
-    void SendReady(string);
-    void GetTurn(string);
+    bool JoinToServer();
+    void InitStatus();
+    bool InitStatusCore();
+    void SendReady();
+    void GetTurn();
     
 private:
     ConnectConfig* connectConfig;
     ConsoleWork* consoleWork;
     Client* client;
+    string apiConnect;
+    string apiStatus;
+    string apiReady;
+    string apiTurn;
 };
 
 #endif  // __HTTP_CLIENT_CORRIDOR_H_ORX3DNKXNOVL__

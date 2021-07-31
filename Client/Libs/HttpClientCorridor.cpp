@@ -2,7 +2,8 @@
 
 using namespace std;
 
-HttpClientCorridor::HttpClientCorridor()
+HttpClientCorridor::HttpClientCorridor(string _apiConnect,string _apiStatus,string _apiReady,string _apiTurn):
+    apiConnect(_apiConnect),apiStatus(_apiStatus),apiReady(_apiReady),apiTurn(_apiTurn)
 {
     consoleWork=new ConsoleWork();
     connectConfig=0;
@@ -16,7 +17,7 @@ void HttpClientCorridor::InitClient()
 {
     client=new Client(connectConfig->address,connectConfig->port);
 }
-bool HttpClientCorridor::JoinToServer(string api)
+bool HttpClientCorridor::JoinToServer()
 {
     bool tryJoin;
     Headers headers={
@@ -25,7 +26,7 @@ bool HttpClientCorridor::JoinToServer(string api)
     do
     {      
         try{  
-            if(auto res=client->Get(api.data(),headers))
+            if(auto res=client->Get(apiConnect.data(),headers))
             {
                 if(res->status==200)
                 {
@@ -50,11 +51,19 @@ bool HttpClientCorridor::JoinToServer(string api)
     consoleWork->SayGoodbye();
     return false;
 }
-bool HttpClientCorridor::InitStatusCore(string api,string apiReady,string apiTurn)
+void HttpClientCorridor::InitStatus()
+{
+    do
+    {
+        sleep(1);
+    } while (!InitStatusCore());
+    consoleWork->SayGoodbye();
+}
+bool HttpClientCorridor::InitStatusCore()
 {
    try
    {
-       if(auto res=client->Get(api.data()))
+       if(auto res=client->Get(apiStatus.data()))
        {
            if(res->status==200)
            {
@@ -62,13 +71,13 @@ bool HttpClientCorridor::InitStatusCore(string api,string apiReady,string apiTur
                if(order=="ReqReady")
                {
                    if(consoleWork->AskYouReady())
-                        SendReady(apiReady);
+                        SendReady();
                }
                else
                { 
                     if(order=="YourTurn")
                     {
-                        GetTurn(apiTurn);
+                        GetTurn();
                     }
                     else if(order=="WaitTurn")
                     {
@@ -96,14 +105,44 @@ bool HttpClientCorridor::InitStatusCore(string api,string apiReady,string apiTur
    }
     return false;
 }
-void HttpClientCorridor::SendReady(string api)
+void HttpClientCorridor::SendReady()
 {
     try
    {
-       auto res=client->Get(api.data());
+       auto res=client->Get(apiReady.data());
    }
    catch(const std::exception& e)
    {
 
    }
+}
+void HttpClientCorridor::GetTurn()
+{
+    try
+    {
+        bool flag;
+        int x,y,dir;
+        consoleWork->SayYourTurn(flag,x,y,dir);
+        Headers headers={{"dir",to_string(dir)}};
+        if(flag)// wall
+        {
+            headers.emplace("order","wall");
+            headers.emplace("x",to_string(x));
+            headers.emplace("y",to_string(y));
+        } else
+        {
+            headers.emplace("order","move");
+        }
+        if(auto res=client->Get(apiTurn.data(),headers))
+        {
+            if(res->status==502)
+            {
+                consoleWork->SayYouCantDoThis();
+            }
+        }
+    }
+    catch(const std::exception& e)
+    {
+        
+    }
 }

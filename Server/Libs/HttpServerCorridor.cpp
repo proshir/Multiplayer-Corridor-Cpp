@@ -17,7 +17,7 @@ void HttpServerCorridor::InitServerConfigFromConsole()
 }
 void HttpServerCorridor::InitMapGame()
 {
-    if(!serverConfig)
+    if(serverConfig)
         mapGame=new MapGame(serverConfig->gameSize);
 }
 void HttpServerCorridor::InitPlayers()
@@ -27,15 +27,17 @@ void HttpServerCorridor::InitPlayers()
 void HttpServerCorridor::InitConnectApi(string api)
 {
     svr->Get(api, [&](const Request& req, Response& res) {
+        
         try
         {
+            
             if(playerConnected<serverConfig->maxPlayers)
             {
                 string name=GetValHeader(req,"name");
-                consoleWork->SayPlayerEntered(name,playerConnected);
                 players[playerConnected]=new Player(name,playerConnected);
                 mapGame->SetPlayerPos(players[playerConnected]->pos,playerConnected);
                 res.set_header("id",to_string(playerConnected));
+                consoleWork->SayPlayerEntered(name,playerConnected);
                 playerConnected++;
                 res.status=200;
             }
@@ -184,15 +186,15 @@ void HttpServerCorridor::StartListen()
 }
 HttpServerCorridor::~HttpServerCorridor()
 {
-    if(!players){
+    if(players){
         for(int i=0;i<serverConfig->maxPlayers;i++)
         {
-            if(!players[i]) delete players[i];
+            if(players[i]) delete players[i];
         }
         delete players;
     }
-    if(!serverConfig) delete serverConfig;
-    if(!consoleWork) delete consoleWork;
-    if(!mapGame) delete mapGame;
+    if(serverConfig) delete serverConfig;
+    if(consoleWork) delete consoleWork;
+    if(mapGame) delete mapGame;
     delete svr;
 }
