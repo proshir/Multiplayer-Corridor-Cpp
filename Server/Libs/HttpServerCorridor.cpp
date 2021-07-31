@@ -6,6 +6,7 @@ HttpServerCorridor::HttpServerCorridor()
 {
     consoleWork=new ConsoleWork();
     serverConfig=0;
+    mapGame=0;
     players=0;
     svr=new Server();
 }
@@ -16,6 +17,11 @@ void HttpServerCorridor::InitServerConfigFromConsole()
 void HttpServerCorridor::InitPlayers()
 {
     players=new Player* [serverConfig->maxPlayers];
+}
+void HttpServerCorridor::InitMapGame()
+{
+    if(!serverConfig)
+        mapGame=new MapGame(serverConfig->gameSize);
 }
 void HttpServerCorridor::InitConnectApi(string api)
 {
@@ -51,7 +57,7 @@ void HttpServerCorridor::InitStatusApi(string api)
     svr->Get("/status",[&](const Request& req, Response& res) {
         try
         {
-            int id=GetHeaderId(req);
+            int id=GetHeaderId(req,serverConfig->maxPlayers);
             res.status=200;
             if(playerConnected==serverConfig->maxPlayers)
             {
@@ -63,7 +69,13 @@ void HttpServerCorridor::InitStatusApi(string api)
                 }
                 else
                 {
-
+                    string order="YourTurn";
+                    if(id!=turn)
+                    {
+                        order="WaitTurn";
+                        res.set_header("NameWait",players[turn]->name);
+                        res.set_header("IdWait",to_string(turn));
+                    }
                 }
             }
         }
@@ -78,7 +90,7 @@ void HttpServerCorridor::InitReadyApi(string api)
     svr->Get("/ready",[&](const Request& req, Response& res) {
         try
         {
-            int id=GetHeaderId(req);
+            int id=GetHeaderId(req,serverConfig->maxPlayers);
             res.status=200;
             if(!gameStarted && playerConnected==serverConfig->maxPlayers)
             {
@@ -120,5 +132,6 @@ HttpServerCorridor::~HttpServerCorridor()
     }
     if(!serverConfig) delete serverConfig;
     if(!consoleWork) delete consoleWork;
+    if(!mapGame) delete mapGame;
     delete svr;
 }
