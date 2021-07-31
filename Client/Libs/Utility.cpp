@@ -22,3 +22,15 @@ int GetValIntHeader(Result& res,string header)
 {
     return ConvertStringToInt(GetValHeader(res,header));
 }
+void WaitTurn(Result& res,ConsoleWork* consoleWork)
+{
+    string name=GetValHeader(res,"NameWait");
+    int id=GetValIntHeader(res,"IdWait");
+    consoleWork->SayWaitPlayer(name,id);
+}
+void WinHelper(Result& res,ConsoleWork* consoleWork)
+{
+    string name=GetValHeader(res,"NameWin");
+    int id=GetValIntHeader(res,"IdWin");
+    consoleWork->SayWin(name,id);
+}

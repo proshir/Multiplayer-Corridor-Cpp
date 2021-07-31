@@ -38,3 +38,27 @@ bool ConsoleWork::AskYouReady()
     cin>>ans;
     return ans=="Yes";
 }
+void ConsoleWork::SayWaitPlayer(string name,int id)
+{
+    cout<<"Wait For "+name+" With id= "+to_string(id)<<endl;
+}
+void ConsoleWork::SayWin(string name,int id)
+{
+    if(id==-1) 
+        cout<<"You Win\n";
+    else 
+        cout<<name+" with Id= "+to_string(id)+" Win this Game!\n";
+}
+void ConsoleWork::PrintMap(string map)
+{
+    if(map!=lastMap)
+    {
+        GameMap gameMap(map);
+        for(int i=0;i<gameMap.height;i++)
+        {
+            for(int j=0;j<gameMap.width;j++)
+                cout<<gameMap.fullMap[i][j]<<" ";
+            cout<<'\n';
+        }
+    }
+}

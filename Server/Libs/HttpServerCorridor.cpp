@@ -83,8 +83,8 @@ void HttpServerCorridor::InitStatusApi(string api)
                         string order="YouWin";
                         if(id!=gameEnd-1){
                             order="OtherWin";
-                            res.set_header("NameWait",players[gameEnd-1]->name);
-                            res.set_header("IdWait",to_string(gameEnd-1));
+                            res.set_header("NameWin",players[gameEnd-1]->name);
+                            res.set_header("IdWin",to_string(gameEnd-1));
                         }
                         res.set_header("order",order);
                     }

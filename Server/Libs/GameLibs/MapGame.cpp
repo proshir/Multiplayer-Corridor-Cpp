@@ -97,11 +97,11 @@ bool MapGame::CheckPlayerWin(pair <int,int> pos)
 }
 string MapGame::ConvertMatrixToString()
 {
-    string ans=to_string(width)+"|"+to_string(height)+"|";
+    string ans=to_string(height)+"|"+to_string(width)+"|";
     for(int i=0;i<height;i++)
         for(int j=0;j<width;j++)
         {
-            ans+=matrix[i][j];
+            ans+=matrix[i][j]=='5' ? '#' : matrix[i][j];
         }
     return ans;
 }

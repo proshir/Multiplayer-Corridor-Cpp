@@ -50,7 +50,7 @@ bool HttpClientCorridor::JoinToServer(string api)
     consoleWork->SayGoodbye();
     return false;
 }
-bool HttpClientCorridor::InitStatusCore(string api,string apiReady)
+bool HttpClientCorridor::InitStatusCore(string api,string apiReady,string apiTurn)
 {
    try
    {
@@ -64,6 +64,28 @@ bool HttpClientCorridor::InitStatusCore(string api,string apiReady)
                    if(consoleWork->AskYouReady())
                         SendReady(apiReady);
                }
+               else
+               { 
+                    if(order=="YourTurn")
+                    {
+                        GetTurn(apiTurn);
+                    }
+                    else if(order=="WaitTurn")
+                    {
+                        WaitTurn(res,consoleWork);
+                    }
+                    else if(order=="YouWin")
+                    {
+                        consoleWork->SayWin();
+                        return true;
+                    }
+                    else if(order=="OtherWin")
+                    {
+                        WinHelper(res,consoleWork);
+                        return true;
+                    }
+                    consoleWork->PrintMap(GetValHeader(res,"map"));
+               }
            }
            else throw new exception();
        }
@@ -72,7 +94,7 @@ bool HttpClientCorridor::InitStatusCore(string api,string apiReady)
    {
 
    }
-    
+    return false;
 }
 void HttpClientCorridor::SendReady(string api)
 {

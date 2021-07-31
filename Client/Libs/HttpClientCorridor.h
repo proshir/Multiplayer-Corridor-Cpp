@@ -15,8 +15,9 @@ public:
     void InitConnectConfigFromConsole();
     void InitClient();
     bool JoinToServer(string);
-    bool InitStatusCore(string,string apiReady);
+    bool InitStatusCore(string,string apiReady,string apiTurn);
     void SendReady(string);
+    void GetTurn(string);
     
 private:
     ConnectConfig* connectConfig;
