@@ -4,15 +4,17 @@
 ///////////////////////////////////////////////////////////
 /// @brief MapGame
 ///
-#include <iostream>
+#include<iostream>
 using namespace std;
 class MapGame
 {
 public:
     MapGame(pair<int,int> _size);
-    bool MovePlayer(pair<int,int>,int);
+    bool MovePlayer(pair<int,int> &,int);
     bool CreateWall(pair<int,int>,int dir);
     bool CheckPlayerWin(pair<int,int>);
+    void SetPlayerPos(pair<int,int> &,int);
+    string ConvertMatrixToString();
     ~MapGame();
 private:
     const int width;

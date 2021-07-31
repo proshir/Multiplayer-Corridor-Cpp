@@ -8,5 +8,6 @@ int main()
     httpServerCorridor->InitConnectApi("/connect");
     httpServerCorridor->InitStatusApi("/status");
     httpServerCorridor->InitReadyApi("/ready");
+    httpServerCorridor->InitTurnApi("/turn");
     httpServerCorridor->StartListen();
 }

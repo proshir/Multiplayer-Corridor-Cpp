@@ -19,7 +19,7 @@ public:
     void InitConnectApi(string);
     void InitStatusApi(string);
     void InitReadyApi(string);
-    void InitMoveApi(string);
+    void InitTurnApi(string);
     void StartListen();
     ~HttpServerCorridor();
 private:
@@ -29,6 +29,7 @@ private:
     MapGame *mapGame;
     int playerConnected;
     int playerReady;
+    int gameEnd;
     bool gameStarted;
     int turn;
     Server *svr;

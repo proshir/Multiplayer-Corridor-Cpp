@@ -12,13 +12,23 @@ int ConvertStringToInt(string s)
     }
     return tmp;
 }
+string GetValHeader(Request req,string header)
+{
+    if(req.has_header(header.data()))
+        return req.get_header_value(header.data());
+    throw new exception();
+}
+int GetValIntHeader(Request req,string header)
+{
+    return ConvertStringToInt(GetValHeader(req,header));
+}
 int GetHeaderId(Request req,int maxPlayers)
 {
-    int ans;
-    if(req.has_header("id"))
-    {
-        ans= ConvertStringToInt(req.get_header_value("id"));
+    int ans=GetValIntHeader(req,"id");
         if(ans<maxPlayers) return ans;
-    }
     throw new exception();
+}
+void GoNextTurn(int& turn,int maxPlayers)
+{
+    turn=(turn+1)%maxPlayers;
 }
