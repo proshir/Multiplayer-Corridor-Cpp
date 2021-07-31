@@ -95,6 +95,7 @@ void ConsoleWork::SayYourTurn(bool& flag,int& x,int& y,int& dir)
             cin>>dir;
             if(dir>=4 || dir<0)
                 continue;
+            break;
         }
         else if(sFlag=="1") 
         {
@@ -114,9 +115,10 @@ void ConsoleWork::SayYourTurn(bool& flag,int& x,int& y,int& dir)
             if(dir>=2 || dir<0)
                 continue;
             flag=true;
+            break;
         }
         else continue;
-    } while (false);
+    } while (true);
 }
 void ConsoleWork::SayYouCantDoThis()
 {

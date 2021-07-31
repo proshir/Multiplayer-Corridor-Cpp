@@ -117,7 +117,8 @@ void HttpServerCorridor::InitReadyApi(string api)
                     if(playerReady==playerConnected)
                     {
                         gameStarted=true;
-                        turn=0;
+                        srand (time(NULL));
+                        turn=rand()%playerConnected;
                     }
                     else 
                         res.set_header("message","Wait for other players");
