@@ -36,29 +36,32 @@ void MapGame::SetPlayerPos(pair <int,int> &pos,int id)
     matrix[pos.first][pos.second]=id+1;
 }
 bool MapGame::MovePlayer(pair <int,int> &pos,int dir)
-{
+{ //mistake we have to fix this
     int color=matrix[pos.first][pos.second];
+    pair<int,int> ans={pos.first,pos.second};
     switch(dir)
     {
         case 0: //Right
-            pos.second++;
+            ans.second++;
             break;
         case 1: //Down
-            pos.first--;
+            ans.first++;
             break;
         case 2: //Left
-            pos.second--;
+            ans.second--;
             break;
         case 3: //Up
-            pos.first++;
+            ans.first--;
             break;
         default:
-            throw new exception();
+            throw exception();
     }
-    if(pos.first<height && pos.first>=0 && pos.second<width &&pos.second>=0)
-        if(matrix[pos.first][pos.second]==0)
+    if(ans.first<height && ans.first>=0 && ans.second<width &&ans.second>=0)
+        if(matrix[ans.first][ans.second]==0)
         {
-            matrix[pos.first][pos.second]=color;
+            matrix[pos.first][pos.second]=0;
+            matrix[ans.first][ans.second]=color;
+            pos=ans;
             return 1;
         }
     return 0;
@@ -73,6 +76,7 @@ bool MapGame::CreateWall(pair <int,int> pos,int dir)
                 if(!matrix[pos.first][pos.second+1] && !matrix[pos.first][pos.second-1])
                 {
                     matrix[pos.first][pos.second+1]=5;
+                    matrix[pos.first][pos.second]=5;
                     matrix[pos.first][pos.second-1]=5;
                     return 1;
                 }
@@ -82,12 +86,13 @@ bool MapGame::CreateWall(pair <int,int> pos,int dir)
                 if(!matrix[pos.first+1][pos.second] && !matrix[pos.first-1][pos.second])
                 {
                     matrix[pos.first+1][pos.second]=5;
+                    matrix[pos.first][pos.second]=5;
                     matrix[pos.first-1][pos.second]=5;
                     return 1;
                 }
             break;
         default:
-            throw new exception();
+            throw exception();
     }
     return 0;
 }
@@ -101,7 +106,7 @@ string MapGame::ConvertMatrixToString()
     for(int i=0;i<height;i++)
         for(int j=0;j<width;j++)
         {
-            ans+=matrix[i][j]=='5' ? '#' : matrix[i][j];
+            ans+=matrix[i][j]==5 ? '#' : (matrix[i][j]+'0');
         }
     return ans;
 }
@@ -109,5 +114,5 @@ MapGame::~MapGame()
 {
     for(int i=0;i<height;i++)
         delete matrix[i];
-    delete matrix;
+    delete [] matrix;
 }

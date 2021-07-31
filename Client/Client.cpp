@@ -5,5 +5,5 @@ int main()
     httpClientCorridor->InitConnectConfigFromConsole();
     httpClientCorridor->InitClient();
     if(!httpClientCorridor->JoinToServer()) return 0;
-  //  httpClientCorridor->InitStatus();
+    httpClientCorridor->InitStatus();
 }

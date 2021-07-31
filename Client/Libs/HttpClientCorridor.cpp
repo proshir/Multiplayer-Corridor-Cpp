@@ -39,7 +39,7 @@ bool HttpClientCorridor::JoinToServer()
                 {
                     consoleWork->SayServerFull();
                 }
-                else throw new exception();
+                else throw exception();
             }
         }
         catch(const std::exception& e)
@@ -75,28 +75,30 @@ bool HttpClientCorridor::InitStatusCore()
                }
                else
                { 
-                    if(order=="YourTurn")
+                    if(consoleWork->PrintMap(GetValHeader(res,"map")) || order=="YourTurn" || order=="YouWin")
                     {
-                        GetTurn();
+                        if(order=="YourTurn")
+                        {
+                            GetTurn();
+                        }
+                        else if(order=="WaitTurn")
+                        {
+                            WaitTurn(res,consoleWork);
+                        }
+                        else if(order=="YouWin")
+                        {
+                            consoleWork->SayWin();
+                            return true;
+                        }
+                        else if(order=="OtherWin")
+                        {
+                            WinHelper(res,consoleWork);
+                            return true;
+                        }
                     }
-                    else if(order=="WaitTurn")
-                    {
-                        WaitTurn(res,consoleWork);
-                    }
-                    else if(order=="YouWin")
-                    {
-                        consoleWork->SayWin();
-                        return true;
-                    }
-                    else if(order=="OtherWin")
-                    {
-                        WinHelper(res,consoleWork);
-                        return true;
-                    }
-                    consoleWork->PrintMap(GetValHeader(res,"map"));
                }
            }
-           else throw new exception();
+           else throw exception();
        }
    }
    catch(const std::exception& e)

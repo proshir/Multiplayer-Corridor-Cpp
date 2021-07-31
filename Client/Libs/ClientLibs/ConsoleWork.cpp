@@ -25,7 +25,7 @@ bool ConsoleWork::WantToTry()
 }
 void ConsoleWork::SayYouJoin(int id)
 {
-    cout<<"You join this server With id = "+id<<endl;
+    cout<<"You join this server With id = "+to_string(id)<<endl;
 }
 void ConsoleWork::SayGoodbye()
 {
@@ -49,18 +49,31 @@ void ConsoleWork::SayWin(string name,int id)
     else 
         cout<<name+" with Id= "+to_string(id)+" Win this Game!\n";
 }
-void ConsoleWork::PrintMap(string map)
+bool ConsoleWork::PrintMap(string map)
 {
     if(map!=lastMap)
     {
-        GameMap gameMap(map);
-        for(int i=0;i<gameMap.height;i++)
+        GameMap *gameMap=new GameMap(map);
+        cout<<"\n   |";
+        for(int j=0;j<gameMap->width;j++)
         {
-            for(int j=0;j<gameMap.width;j++)
-                cout<<gameMap.fullMap[i][j]<<" ";
+            cout<<j<<" ";
+        }
+        cout<<'\n';
+        for(int i=0;i<(gameMap->height);i++)
+        {
+            cout<<i<<" ";
+            if(i<10) cout<<" ";
+            cout<<"|";
+            for(int j=0;j<(gameMap->width);j++)
+                cout<<gameMap->fullMap[i][j]<<" ";
             cout<<'\n';
         }
+        lastMap=map;
+        delete gameMap;
+        return true;
     }
+    return false;
 }
 void ConsoleWork::SayYourTurn(bool& flag,int& x,int& y,int& dir)
 {
@@ -107,5 +120,5 @@ void ConsoleWork::SayYourTurn(bool& flag,int& x,int& y,int& dir)
 }
 void ConsoleWork::SayYouCantDoThis()
 {
-    cout<<"YouCantDoThis\n";
+    cout<<"You Can't Do This\n";
 }

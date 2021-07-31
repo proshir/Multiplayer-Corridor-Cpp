@@ -18,7 +18,7 @@ public:
     bool AskYouReady();
     void SayWaitPlayer(string,int);
     void SayWin(string="",int=-1);
-    void PrintMap(string map);
+    bool PrintMap(string map);
     void SayYourTurn(bool&,int&,int&,int&);
     void SayYouCantDoThis();
 private :

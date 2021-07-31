@@ -157,11 +157,10 @@ void HttpServerCorridor::InitTurnApi(string api)
                     }
                     else if(order=="move")
                     {
-                        pair<int,int> pos={GetValIntHeader(req,"x"),GetValIntHeader(req,"y")};
                         int dir=GetValIntHeader(req,"dir");
-                        if(mapGame->MovePlayer(pos,dir))
+                        if(mapGame->MovePlayer(players[id]->pos,dir))
                         {
-                            if(mapGame->CheckPlayerWin(pos))
+                            if(mapGame->CheckPlayerWin(players[id]->pos))
                                 gameEnd=id+1;
                             else
                                 GoNextTurn(turn,serverConfig->maxPlayers);
@@ -191,7 +190,7 @@ HttpServerCorridor::~HttpServerCorridor()
         {
             if(players[i]) delete players[i];
         }
-        delete players;
+        delete [] players;
     }
     if(serverConfig) delete serverConfig;
     if(consoleWork) delete consoleWork;

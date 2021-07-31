@@ -8,7 +8,7 @@ int ConvertStringToInt(string s)
     for(int i=0;i<s.length();i++)
     {
         tmp=tmp*10 + (s[i]-'0');
-        if(s[i]>'9' || s[i]<'0') throw new exception();
+        if(s[i]>'9' || s[i]<'0') throw exception();
     }
     return tmp;
 }
@@ -16,7 +16,7 @@ string GetValHeader(Request req,string header)
 {
     if(req.has_header(header.data()))
         return req.get_header_value(header.data());
-    throw new exception();
+    throw exception();
 }
 int GetValIntHeader(Request req,string header)
 {
@@ -26,7 +26,7 @@ int GetHeaderId(Request req,int maxPlayers)
 {
     int ans=GetValIntHeader(req,"id");
         if(ans<maxPlayers && ans>=0) return ans;
-    throw new exception();
+    throw exception();
 }
 void GoNextTurn(int& turn,int maxPlayers)
 {

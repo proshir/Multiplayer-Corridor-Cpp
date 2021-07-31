@@ -2,6 +2,9 @@
 
 GameMap::GameMap(string s)
 {
+    height=0;
+    fullMap=0;
+    width=0;
     int o=0,d;
     for(int i=0;i<s.length();i++)
     {
@@ -24,12 +27,13 @@ GameMap::GameMap(string s)
                 width=width*10 +(s[i]-'0');
                 break;
             case 2:
-                fullMap[(i-d)/width][(i-d)%width]=s[i];
+               fullMap[(i-d)/width][(i-d)%width]=s[i];
+               break;
         }
     }
 }
 
 GameMap::~GameMap()
 {
-    delete fullMap;
+   delete [] fullMap;
 }
