@@ -5,14 +5,23 @@
 /// @brief HttpClientCorridor
 ///
 #include "ClientLibs/ConsoleWork.h"
+#include "ClientLibs/httplib.h"
+#include "Utility.cpp"
+using namespace httplib;
 class HttpClientCorridor
 {
 public:
     HttpClientCorridor();
     void InitConnectConfigFromConsole();
+    void InitClient();
+    bool JoinToServer(string);
+    bool InitStatusCore(string,string apiReady);
+    void SendReady(string);
+    
 private:
     ConnectConfig* connectConfig;
     ConsoleWork* consoleWork;
+    Client* client;
 };
 
 #endif  // __HTTP_CLIENT_CORRIDOR_H_ORX3DNKXNOVL__

@@ -25,7 +25,7 @@ int GetValIntHeader(Request req,string header)
 int GetHeaderId(Request req,int maxPlayers)
 {
     int ans=GetValIntHeader(req,"id");
-        if(ans<maxPlayers) return ans;
+        if(ans<maxPlayers && ans>=0) return ans;
     throw new exception();
 }
 void GoNextTurn(int& turn,int maxPlayers)

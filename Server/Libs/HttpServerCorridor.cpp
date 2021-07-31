@@ -41,7 +41,7 @@ void HttpServerCorridor::InitConnectApi(string api)
             }
             else 
             { 
-                res.status=410; 
+                res.status=510; 
                 res.set_header("message","This server is full");
             }
         }
