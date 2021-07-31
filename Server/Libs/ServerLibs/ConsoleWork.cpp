@@ -8,6 +8,7 @@ void ConsoleWork::GetServerConfig(ServerConfig *& serverConfig)
     string address;
     int port;
     int maxPlayers;
+    pair <int,int> gameSize={11,11};
     cout<<"Please Enter Server Name\n";
     getline(cin,serverName);
     cout<<"Please Enter Address\n";
@@ -19,7 +20,8 @@ void ConsoleWork::GetServerConfig(ServerConfig *& serverConfig)
         cout<<"Please Enter MaxPlayers (2-4)\n";
         cin>>maxPlayers; 
     } while (maxPlayers>4 || maxPlayers<2);
-    serverConfig=new ServerConfig(serverName,address,port,maxPlayers);
+    // we can Get gameSize From Console But I rather to Set this default value because it has some bugs for some cases
+    serverConfig=new ServerConfig(serverName,address,port,maxPlayers,gameSize);
 }
 void ConsoleWork::SayServerRun()
 {
