@@ -29,7 +29,7 @@ void ConsoleWork::SayYouJoin(int id)
 }
 void ConsoleWork::SayGoodbye()
 {
-    cout<<"Goodbye\n...Enjoy Your Life...";
+    cout<<"Goodbye\n...Enjoy Your Life...\n";
 }
 bool ConsoleWork::AskYouReady()
 {

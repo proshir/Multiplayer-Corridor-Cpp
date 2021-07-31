@@ -12,6 +12,7 @@ public:
     void SayServerRun();
     void SayPlayerEntered(string name,int id);
     void SayPlayerReady(int id);
+    void SayGameEnd(string name,int id);
 };
 
 #endif  // __CONSOLE_WORK_H_R51JU7C4KP2C__

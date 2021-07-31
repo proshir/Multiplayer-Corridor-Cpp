@@ -161,7 +161,10 @@ void HttpServerCorridor::InitTurnApi(string api)
                         if(mapGame->MovePlayer(players[id]->pos,dir))
                         {
                             if(mapGame->CheckPlayerWin(players[id]->pos))
+                            {
                                 gameEnd=id+1;
+                                consoleWork->SayGameEnd(players[id]->name,id);
+                            }
                             else
                                 GoNextTurn(turn,serverConfig->maxPlayers);
                         }
