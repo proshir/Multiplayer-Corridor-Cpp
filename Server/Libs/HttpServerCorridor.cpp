@@ -1,5 +1,4 @@
 #include "HttpServerCorridor.h"
-
 using namespace std;
 
 HttpServerCorridor::HttpServerCorridor()
